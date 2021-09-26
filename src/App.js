@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import {useState} from "react";
 import './App.css';
+import {io} from 'socket.io-client';
+import {v4 as uuidv4} from "uuid";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [socketInstances, setSocketInstances] = useState([]);
+    const initiateSocket = () => {
+        const socketList = [];
+        for (let i = 0; i <= 10; i++) {
+            const socket = io.connect("URL", {
+                query: `username=${uuidv4()}`
+            });
+            socketList.push(socket);
+        }
+        setSocketInstances(socketList);
+    }
+
+    return (
+        <div className="App">
+            <button onClick={() => initiateSocket()}>Start</button>
+        </div>
+    );
 }
 
 export default App;
