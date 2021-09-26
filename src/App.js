@@ -18,7 +18,7 @@ function App() {
 
     return (
         <div className="App">
-            <button onClick={() => initiateSocket()}>Start</button>
+            <button onClick={() => initiateSocket()} className="button">Start</button>
         </div>
     );
 }
